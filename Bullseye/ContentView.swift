@@ -10,26 +10,28 @@ import SwiftUI
 struct ContentView: View {
     
     @State var alertIsVisible: Bool = false
-    @State var alertIsVenom: Bool = false
+    @State var sliderValue: Double = 50
+    @State var target: Int = Int.random(in: 1...100)
     
     var body: some View {
         VStack {
-            Button(action: {
-                    print ("Spider-man joke")
-                    alertIsVenom = true
-            })
-            {
-                Text ("Well, hello boeee!")
+                Spacer()
+    //Target row
+            HStack {
+                Text("Put the slider closer you can to:")
+                Text("\(target)")
             }
-            .alert(isPresented: $alertIsVenom, content: { () -> Alert in
-                return Alert (title: Text ("Who's there?)"), message: Text ("It's ur uncle Ben, Pit!"), dismissButton: .default(Text ("That's not funny, Venom!")))
-            })
+                Spacer()
+    //Slider row
+            HStack {
+      
+                Text ("1")
+                Slider(value: $sliderValue, in: 1...100)
+                Text ("100")
+            }
+                Spacer()
             
-            Text("This is something")
-                .fontWeight(.heavy)
-                .padding()
-                .foregroundColor(.red)
-                
+    //Buttton row
             Button(action: {
                 print ("someone tapped me!!!!")
                 alertIsVisible = true
@@ -39,15 +41,60 @@ struct ContentView: View {
             }
             .alert(isPresented: $alertIsVisible) { () ->
                 Alert in
-                return Alert (title: Text ("Warning!"), message: Text ("This is a pop-up"), dismissButton: .default(Text ("Gotcha")))
+                var roundedValue: Int = Int (sliderValue.rounded())
+                return Alert (title: Text ("WOW!"), message: Text ("The slider's value is \(roundedValue). \n" +
+                "You scored \(pointsForCurrentSession()) points this round"
+                ), dismissButton: .default(Text ("Ok")))
             }
+            
+                Spacer()
+    //Score row
+            HStack {
+                Button(action: {
+                    
+                }, label: {
+                    Text("Try again")
+                })
+                Spacer()
+            Text ("Score")
+            Text ("99999")
+                Spacer()
+            Text ("Round")
+            Text ("999")
+                Spacer()
+                Button(action: {}, label: {
+                Text ("Info")
+            })
+            }
+            .padding(.bottom, 20)
+            
+            
+  
             }
         }
+    func pointsForCurrentSession() -> Int {
+        var difference: Int
+        var roundedValue = Int (sliderValue.rounded())
+        
+        if roundedValue > target {
+            difference = roundedValue - target
+            return difference
+        } else if roundedValue < target {
+            difference = target - roundedValue
+            return difference
+        } else {
+            difference = 0
+        }
+        
+        var awardedPoint: Int = 100 - difference
+        
+        return awardedPoint
+    }
     }
     
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().previewLayout(.fixed(width: 896, height: 414))
     }
 }
