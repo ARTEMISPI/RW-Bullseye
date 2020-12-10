@@ -9,87 +9,100 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @State var alertIsVisible: Bool = false
-    @State var sliderValue: Double = 50
-    @State var target: Int = Int.random(in: 1...100)
+    //MARK: States
+    
+    @State var alertIsVisible = false
+    @State var sliderValue = 50.0
+    @State var target = Int.random(in: 1...100)
+    @State var score = 0
+    @State var round = 1
+    
+    //MARK: Interface
     
     var body: some View {
         VStack {
                 Spacer()
     //Target row
-            HStack {
-                Text("Put the slider closer you can to:")
-                Text("\(target)")
-            }
-                Spacer()
+    HStack {
+        Text("Put the slider closer you can to:")
+        Text("\(target)")
+    }
+        Spacer()
+            
     //Slider row
-            HStack {
-      
-                Text ("1")
-                Slider(value: $sliderValue, in: 1...100)
-                Text ("100")
-            }
-                Spacer()
+    HStack {
+        Text ("1")
+        Slider(value: $sliderValue, in: 1...100)
+        Text ("100")
+    }
+        Spacer()
             
     //Buttton row
-            Button(action: {
-                print ("someone tapped me!!!!")
-                alertIsVisible = true
-            })
-            {
-                Text ("Hit me")
-            }
-            .alert(isPresented: $alertIsVisible) { () ->
-                Alert in
-                var roundedValue: Int = Int (sliderValue.rounded())
-                return Alert (title: Text ("WOW!"), message: Text ("The slider's value is \(roundedValue). \n" +
-                "You scored \(pointsForCurrentSession()) points this round"
-                ), dismissButton: .default(Text ("Ok")))
-            }
-            
-                Spacer()
-    //Score row
-            HStack {
-                Button(action: {
-                    
-                }, label: {
-                    Text("Try again")
-                })
-                Spacer()
-            Text ("Score")
-            Text ("99999")
-                Spacer()
-            Text ("Round")
-            Text ("999")
-                Spacer()
-                Button(action: {}, label: {
-                Text ("Info")
-            })
-            }
-            .padding(.bottom, 20)
-            
-            
-  
-            }
-        }
-    func pointsForCurrentSession() -> Int {
-        var difference: Int
-        var roundedValue = Int (sliderValue.rounded())
-        
-        if roundedValue > target {
-            difference = roundedValue - target
-            return difference
-        } else if roundedValue < target {
-            difference = target - roundedValue
-            return difference
-        } else {
-            difference = 0
-        }
-        
-        var awardedPoint: Int = 100 - difference
-        
-        return awardedPoint
+    Button(action: {
+        print ("someone tapped me!!!!")
+        alertIsVisible = true
+    })
+    {
+        Text ("Hit me")
     }
+    .alert(isPresented: $alertIsVisible) { () ->
+        Alert in
+        return Alert (title: Text ("\(howWellPlayed())"), message: Text ("The slider's value is \(sliderValueRounded()). \n" +
+        "You scored \(pointsForCurrentSession()) points this round"
+        ), dismissButton: .default(Text ("Ok")){
+            score = score + pointsForCurrentSession()
+            target = Int.random(in: 1...100)
+            round = round + 1
+        })
+    }
+    
+        Spacer()
+            
+    //Score row
+    HStack {
+        Button(action: {
+            
+        }, label: {
+            Text("Try again")
+        })
+        Spacer()
+    Text ("Score")
+    Text ("\(score)")
+        Spacer()
+    Text ("Round")
+    Text ("\(round)")
+        Spacer()
+    Button(action: {}, label: {
+    Text ("Info")
+    })
+    }
+    .padding(.bottom, 20)
+
+            }
+        }
+    
+//MARK: Methods
+    
+    func sliderValueRounded() -> Int {
+        Int(sliderValue.rounded())
+    }
+    
+    func pointsForCurrentSession() -> Int {
+       100 - abs(target - sliderValueRounded())
+    }
+    
+    func howWellPlayed() -> String {
+        var title: String = ""
+        if pointsForCurrentSession()>90 {
+            title = "Great job!"
+        } else if pointsForCurrentSession()>50 {
+            
+        } else if pointsForCurrentSession()<5 {
+            
+        }
+        return title
+    }
+    
     }
     
 
