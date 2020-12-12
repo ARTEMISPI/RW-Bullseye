@@ -47,7 +47,7 @@ struct ContentView: View {
     }
     .alert(isPresented: $alertIsVisible) { () ->
         Alert in
-        return Alert (title: Text ("\(howWellPlayed())"), message: Text ("The slider's value is \(sliderValueRounded()). \n" +
+        return Alert (title: Text (alertTitle()), message: Text ("The slider's value is \(sliderValueRounded()). \n" +
         "You scored \(pointsForCurrentSession()) points this round"
         ), dismissButton: .default(Text ("Ok")){
             score = score + pointsForCurrentSession()
@@ -61,9 +61,9 @@ struct ContentView: View {
     //Score row
     HStack {
         Button(action: {
-            
+            greatReset()
         }, label: {
-            Text("Try again")
+            Text("Reset")
         })
         Spacer()
     Text ("Score")
@@ -87,20 +87,53 @@ struct ContentView: View {
         Int(sliderValue.rounded())
     }
     
-    func pointsForCurrentSession() -> Int {
-       100 - abs(target - sliderValueRounded())
+    func amauntOff() -> Int {
+        abs(target - sliderValueRounded())
     }
     
-    func howWellPlayed() -> String {
-        var title: String = ""
-        if pointsForCurrentSession()>90 {
-            title = "Great job!"
-        } else if pointsForCurrentSession()>50 {
-            
-        } else if pointsForCurrentSession()<5 {
-            
+    func pointsForCurrentSession() -> Int {
+        let maximumScore = 100
+        let difference = amauntOff()
+        let bonus: Int
+        
+        if difference == 0 {
+            bonus = 100
+        } else if difference == 1 {
+            bonus = 50
+        } else if difference == 5 {
+            bonus = 25
+        } else {
+            bonus = 0
+        }
+        return maximumScore - difference + bonus
+    }
+    
+    
+    func alertTitle() -> String {
+        let title: String
+        
+        if amauntOff() == 0 {
+            title = "Perfect! Take your extra 100 points"
+        } else if amauntOff() <= 1 {
+            title = "Wow! Extra 50 points just for this shoot"
+        } else if amauntOff() <=  5 {
+            title = "Cool! Extra 25 points you earned"
+        } else if amauntOff() <= 10 {
+            title = "Not bad!"
+        } else if amauntOff() <= 25 {
+            title = "Try to be more accurate"
+        } else {
+            title = "Do you even want to play?!"
         }
         return title
+    }
+    
+    func greatReset() {
+        alertIsVisible = false
+        sliderValue = 50.0
+        target = Int.random(in: 1...100)
+        score = 0
+        round = 1
     }
     
     }
