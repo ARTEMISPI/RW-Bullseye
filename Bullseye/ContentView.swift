@@ -17,6 +17,17 @@ struct ContentView: View {
     @State var score = 0
     @State var round = 1
     
+    //MARK: Objects
+    
+    struct LabelStyle: ViewModifier {
+        func body(content: Content) -> some View {
+            content
+                .font(.custom("Arial Rounded MT Bold", size: 20))
+                .foregroundColor(.white)
+                .shadow(color: .black, radius: 5, x: 2, y: 2)
+        }
+    }
+    
     //MARK: Interface
     
     var body: some View {
@@ -32,8 +43,16 @@ struct ContentView: View {
     //Slider row
     HStack {
         Text ("1")
+            .foregroundColor(.white)
+            .bold()
+            .shadow(color: .black, radius: 5, x: 2, y: 2)
+            .font(.custom("Arial Rounded MT Bold", size: 20))
         Slider(value: $sliderValue, in: 1...100)
         Text ("100")
+            .foregroundColor(.white)
+            .bold()
+            .shadow(color: .black, radius: 5, x: 2, y: 2)
+            .font(.custom("Arial Rounded MT Bold", size: 20))
     }
         Spacer()
             
@@ -79,7 +98,8 @@ struct ContentView: View {
     .padding(.bottom, 20)
 
             }
-        }
+        .background(Image("Background"), alignment: .center)
+    }
     
 //MARK: Methods
     
@@ -129,7 +149,6 @@ struct ContentView: View {
     }
     
     func greatReset() {
-        alertIsVisible = false
         sliderValue = 50.0
         target = Int.random(in: 1...100)
         score = 0
