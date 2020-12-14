@@ -36,6 +36,7 @@ struct ContentView: View {
     //Target row
     HStack {
         Text("Put the slider closer you can to:")
+            .modifier(LabelStyle())
         Text("\(target)")
     }
         Spacer()
@@ -43,16 +44,10 @@ struct ContentView: View {
     //Slider row
     HStack {
         Text ("1")
-            .foregroundColor(.white)
-            .bold()
-            .shadow(color: .black, radius: 5, x: 2, y: 2)
-            .font(.custom("Arial Rounded MT Bold", size: 20))
+            .modifier(LabelStyle())
         Slider(value: $sliderValue, in: 1...100)
         Text ("100")
-            .foregroundColor(.white)
-            .bold()
-            .shadow(color: .black, radius: 5, x: 2, y: 2)
-            .font(.custom("Arial Rounded MT Bold", size: 20))
+            .modifier(LabelStyle())
     }
         Spacer()
             
@@ -86,9 +81,11 @@ struct ContentView: View {
         })
         Spacer()
     Text ("Score")
+        .modifier(LabelStyle())
     Text ("\(score)")
         Spacer()
-    Text ("Round")
+        Text ("Round")
+            .modifier(LabelStyle())
     Text ("\(round)")
         Spacer()
     Button(action: {}, label: {
