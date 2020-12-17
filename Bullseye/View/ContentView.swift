@@ -16,6 +16,7 @@ struct ContentView: View {
     @State var target = Int.random(in: 1...100)
     @State var score = 0
     @State var round = 1
+    let strangeBlue = Color(red: 47/255, green: 50/255, blue: 107/255)
     
     //MARK: Modifiers
     
@@ -33,7 +34,30 @@ struct ContentView: View {
             content
                 .font(.custom("Arial Rounded MT Bold", size: 24))
                 .foregroundColor(.yellow)
-                .modifier(LabelStyle())
+                .modifier(ShadowStyle())
+        }
+    }
+    
+    struct ShadowStyle: ViewModifier {
+        func body(content: Content) -> some View {
+            content
+                .shadow(color: .black, radius: 20, x: 2, y: 2)
+        }
+    }
+    
+    struct ButtonLargeTextStyle: ViewModifier {
+        func body(content: Content) -> some View {
+            content
+                .foregroundColor(.black)
+                .font(.custom("Arial Rounded MT Bold", size: 18))
+        }
+    }
+    
+    struct ButtonSmallTextStyle: ViewModifier {
+        func body(content: Content) -> some View {
+            content
+                .foregroundColor(.black)
+                .font(.custom("Arial Rounded MT Bold", size: 14))
         }
     }
     
@@ -52,7 +76,7 @@ struct ContentView: View {
     //Slider row
     HStack {
         Text ("1").modifier(LabelStyle())
-        Slider(value: $sliderValue, in: 1...100)
+        Slider(value: $sliderValue, in: 1...100).accentColor(.yellow)
         Text ("100").modifier(LabelStyle())
     }
         Spacer()
@@ -63,7 +87,7 @@ struct ContentView: View {
         alertIsVisible = true
     })
     {
-        Text ("Hit me")
+        Text ("Hit me").modifier(ButtonLargeTextStyle())
     }
     .alert(isPresented: $alertIsVisible) { () ->
         Alert in
@@ -75,6 +99,7 @@ struct ContentView: View {
             round = round + 1
         })
     }
+    .background(Image("Button"), alignment: .center).modifier(ShadowStyle())
         Spacer()
             
     //Score row
@@ -82,8 +107,12 @@ struct ContentView: View {
         Button(action: {
             greatReset()
         }, label: {
-            Text("Reset")
+            HStack {
+                Image("ResetIcon")
+                Text("Reset").modifier(ButtonSmallTextStyle())
+            }
         })
+        .background(Image("Button"), alignment: .center).modifier(ShadowStyle())
         Spacer()
     Text ("Score:").modifier(LabelStyle())
     Text ("\(score)").modifier(ValueStyle())
@@ -91,13 +120,19 @@ struct ContentView: View {
         Text ("Round:").modifier(LabelStyle())
     Text ("\(round)").modifier(ValueStyle())
         Spacer()
-    Button(action: {}, label: {
-    Text ("Info")
-    })
+        NavigationLink (destination: InfoView()) {
+        HStack {
+            Image("InfoIcon")
+            Text ("Info").modifier(ButtonSmallTextStyle())
+        }
+        }
+    .background(Image("Button"), alignment: .center).modifier(ShadowStyle())
     }
     .padding(.bottom, 20)
             }
         .background(Image("Background"), alignment: .center)
+        .accentColor(strangeBlue)
+        .navigationBarTitle("Bullseye")
     }
     
 //MARK: Methods
