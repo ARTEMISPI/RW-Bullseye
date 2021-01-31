@@ -51,7 +51,7 @@ struct ContentView: View {
     struct ShadowStyle: ViewModifier {
         func body(content: Content) -> some View {
             content
-                .shadow(color: .black, radius: 20, x: 2, y: 2)
+//                .shadow(color: .black, radius: 20, x: 2, y: 2)
         }
     }
     
@@ -82,18 +82,25 @@ struct ContentView: View {
         HStack {
             Text("Put the slider closer you can to".uppercased())
                 .modifier(LabelStyle())
+                .foregroundColor(Color("TextColor"))
             
         }
+                
                 Text(String(game.target))
                     .kerning(-1.0)
                     .modifier(TargetValueStyle())
+                    .foregroundColor(Color("TextColor"))
             Spacer()
                 
         //SLIDER
         HStack {
-            Text ("1").modifier(LabelStyle())
+            Text ("1")
+                .modifier(LabelStyle())
+                .foregroundColor(Color("TextColor"))
             Slider(value: $sliderValue, in: 1...100).accentColor(.accentColor)
-            Text ("100").modifier(LabelStyle())
+            Text ("100")
+                .modifier(LabelStyle())
+                .foregroundColor(Color("TextColor"))
         }
             Spacer()
                 
@@ -104,9 +111,8 @@ struct ContentView: View {
         })
         {
             Text ("Hit me".uppercased())
-    //            .modifier(ButtonLargeTextStyle())
+                .modifier(ButtonLargeTextStyle())
                 .font(.title3)
-            
         }
         .padding(20.0)
         .background(ZStack {
@@ -228,6 +234,11 @@ struct ContentView_Previews: PreviewProvider {
         Group {
             ContentView()
             ContentView()
+                .previewLayout(.fixed(width: 896, height: 414))
+            ContentView()
+                .preferredColorScheme(.dark)
+            ContentView()
+                .preferredColorScheme(.dark)
                 .previewLayout(.fixed(width: 896, height: 414))
         }
     }
