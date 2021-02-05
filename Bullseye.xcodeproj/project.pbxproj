@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		632305BE25CB188500724E70 /* TextViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632305BD25CB188500724E70 /* TextViews.swift */; };
+		632305C425CB1D6E00724E70 /* Modifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 632305C325CB1D6E00724E70 /* Modifiers.swift */; };
 		6373666D258B26E000534159 /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6373666C258B26E000534159 /* InfoView.swift */; };
 		637750D225BAED9200B36E36 /* BullseyeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637750D125BAED9200B36E36 /* BullseyeTests.swift */; };
 		637815272572ABB60025EF94 /* BullseyeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 637815262572ABB60025EF94 /* BullseyeApp.swift */; };
@@ -27,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		632305BD25CB188500724E70 /* TextViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViews.swift; sourceTree = "<group>"; };
+		632305C325CB1D6E00724E70 /* Modifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modifiers.swift; sourceTree = "<group>"; };
 		6373666C258B26E000534159 /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		637750CF25BAED9200B36E36 /* BullseyeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BullseyeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		637750D125BAED9200B36E36 /* BullseyeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BullseyeTests.swift; sourceTree = "<group>"; };
@@ -62,7 +66,9 @@
 			isa = PBXGroup;
 			children = (
 				6378152A2572ABB60025EF94 /* ContentView.swift */,
+				632305BD25CB188500724E70 /* TextViews.swift */,
 				6373666C258B26E000534159 /* InfoView.swift */,
+				632305C325CB1D6E00724E70 /* Modifiers.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -241,6 +247,8 @@
 				6373666D258B26E000534159 /* InfoView.swift in Sources */,
 				637815272572ABB60025EF94 /* BullseyeApp.swift in Sources */,
 				6378152B2572ABB60025EF94 /* ContentView.swift in Sources */,
+				632305BE25CB188500724E70 /* TextViews.swift in Sources */,
+				632305C425CB1D6E00724E70 /* Modifiers.swift in Sources */,
 				637BECE725B9FE770086D592 /* Game.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
