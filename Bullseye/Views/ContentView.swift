@@ -23,8 +23,7 @@ struct ContentView: View {
     //MARK: - INTERFACE
     var body: some View {
         ZStack {
-            Color("BackgroundColor")
-                .edgesIgnoringSafeArea(.all)
+            BackgroundView(game: $game)
             VStack {
                 VStack {
                     InstructionView(game: $game)
