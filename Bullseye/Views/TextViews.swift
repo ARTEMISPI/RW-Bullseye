@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-//MARK: - VIEW
+//MARK: - VIEWS
 struct InstructionText: View {
     
     var text: String
@@ -43,6 +43,7 @@ struct SliderLabelText: View {
         Text(text)
             .bold()
             .foregroundColor(Color("TextColor"))
+            .frame(width: 35.0)
     }
 }
 
@@ -82,9 +83,22 @@ struct HitMeButton: View {
     }
 }
 
+struct LabelText: View {
+    
+    var text: String
+    
+    var body: some View {
+        Text(text)
+            .bold()
+            .foregroundColor(Color("TextColor"))
+            .kerning(1.5)
+            .font(.caption)
+    }
+}
 
 
-//MARK: - VIEWS
+
+//MARK: - VIEWS SET
 struct InstructionView: View {
     
     @Binding var game: Game
@@ -92,6 +106,8 @@ struct InstructionView: View {
     var body: some View {
         VStack {
             InstructionText(text: "🎯🎯🎯\nPut the slider closer you can to")
+                .padding(.leading, 30.0)
+                .padding(.trailing, 30.0)
             BigNumberText(text: String(game.target))
         }
     }
@@ -111,7 +127,7 @@ struct SliderView: View {
     }
 }
 
-//MARK: - PREVIEW
+//MARK: - PREVIEWS
 struct TextViews_Previews: PreviewProvider {
     
     static var previews: some View {
@@ -119,6 +135,7 @@ struct TextViews_Previews: PreviewProvider {
             InstructionText(text: "Instructions")
             BigNumberText(text: "Big Number")
             SliderLabelText(text: "1 and 100")
+            LabelText(text: "9")
         }
     }
 }

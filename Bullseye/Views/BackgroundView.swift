@@ -18,8 +18,10 @@ struct BackgroundView: View {
             BottomView(game: $game)
         }
         .padding()
-        .background(Color("BackgroundColor"))
-        .edgesIgnoringSafeArea(.all)
+        .background(
+            Color("BackgroundColor")
+                .edgesIgnoringSafeArea(.all)
+        )
     }
 }
 
@@ -42,8 +44,10 @@ struct NumberView: View {
     var text: String
 
     var body: some View {
-        Color.gray
-            .frame(width: 56, height: 56)
+        VStack(spacing: 5.0) {
+            LabelText(text: title.uppercased())
+            RoundedRectTextView(text: text)
+        }
     }
 }
 
@@ -53,9 +57,9 @@ struct BottomView: View {
 
     var body: some View {
         HStack {
-            NumberView(title: "Score", text: String())
+            NumberView(title: "Score", text: String(game.score))
             Spacer()
-            NumberView(title: "Round", text: String())
+            NumberView(title: "Round", text: String(game.round))
         }
     }
 }
